@@ -14,6 +14,7 @@ The project I was building was a web application which uses RavenDB for most per
 ## Writing Async Services & Interfaces
 The approach I normally take when creating complex web applications is to use the concepts of services to decouple the implementation of the storage and business rules from the web front end. This works great for designing simple integration tests to confirm that a service method is working as expected. A normal service interface might look something like this:
 
+    [lang=cs]
     public interface IService
     {
         SearchResult Search(Query query);
@@ -21,6 +22,7 @@ The approach I normally take when creating complex web applications is to use th
 
 To make this interface compatible with the async pattern, you simply wrap the return value of the action in a Task<>
 
+    [lang=cs]
     public interface IService
     {
         Task<SearchResult> Search(Query query);
@@ -28,6 +30,7 @@ To make this interface compatible with the async pattern, you simply wrap the re
 
 If a service method does not have a return type (returns void), then simply return a plain Task.
 
+    [lang=cs]
     public interface IService
     {
         Task Delete(string id);
@@ -42,6 +45,7 @@ Typically, with synchronous services, custom exception types can be a neat way o
 
 Because of this, I took the approach of using polymorphic result types to represent all possible types of result (apart from system failure). This works much like a discriminated union in F# the return type is simply a finite list of possible outcomes.
 
+    [lang=cs]
     public abstract class CreateResult
     {
         private CreateResult()

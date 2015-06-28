@@ -22,7 +22,8 @@ One of the only good reasons for the explicit listing of files in project files 
 
 The trend in the Javascript ecosystem is to move towards the likes of Browserify or node's modules for dealing with file linking where you simply 'reference' the name of the file that you depend on such as:
 
-    var foo = require('foo.js');
+    [lang=js]
+    var foo = require("foo.js");
 
 Then, rather than having a 'project file' listing all the files the need to be built, you just tell the compiler about the root file, and it will dynamically include the required files recursively.
 
